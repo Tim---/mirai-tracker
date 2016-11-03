@@ -48,9 +48,9 @@ ATK_OPTS = [
 # Converts Construct objects to native python objects (list, dict)
 def construct_pythonize(obj):
     if isinstance(obj, Container):
-        return {k: construct_jsonify(v) for k, v in obj.items() if not k.startswith('_')}
+        return {k: construct_pythonize(v) for k, v in obj.items() if not k.startswith('_')}
     elif isinstance(obj, ListContainer):
-        return [construct_jsonify(v) for v in obj]
+        return [construct_pythonize(v) for v in obj]
     else:
         return obj
 
@@ -108,6 +108,7 @@ if __name__ == "__main__":
     attacks = {
         ("sdrfafasyy.top", 23): [
             b'\x00\x00\x00x\n\x01h\x1f\x01\xad \x02\x18\x0245\x08\x11mostwantedhf.info',
+            b'\x00\x00\x00\x14\x03\x01g\xc3d\xba \x01\x07\x0525565',
         ],
         ("fuck1.bagthebook.com", 23): [
             b'\x00\x00\x00\x0f\x03\x01$\xf8\x0c@ \x00',

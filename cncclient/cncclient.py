@@ -55,8 +55,8 @@ class CnCClient(threading.Thread):
                     try:
                         decoded = parse_atk(payload)
                         sys.stdout.write('{} {}:{}: {}\n'.format(t, self.host, self.port, decoded))
-                    except:
-                        sys.stdout.write('{} {}:{}: {}\n'.format(t, self.host, self.port, payload))
+                    except Exception as e:
+                        sys.stdout.write('{}\n{} {}:{}: {}\n'.format(e, t, self.host, self.port, payload))
                 else:
                     # Attack command, not enough bytes
                     break
